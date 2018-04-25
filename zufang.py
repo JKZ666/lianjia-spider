@@ -4,6 +4,7 @@
 # 获得指定城市的出租房数据
 
 
+import codecs
 import threadpool
 import threading
 from lib.utility.date import *
@@ -29,6 +30,8 @@ def collect_area_zufang(city_name, area_name, fmt="csv"):
 
     csv_file = today_path + "/{0}.csv".format(area_name)
     with open(csv_file, "w") as f:
+        # 在文件头部写入codecs.BOM_UTF8以防止乱码，文件为utf-8编码格式
+        f.write(codecs.BOM_UTF8)
         # 开始获得需要的板块数据
         zufangs = get_area_zufang_info(city_name, area_name)
         # 锁定
